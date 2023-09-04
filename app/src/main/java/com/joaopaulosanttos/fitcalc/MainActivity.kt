@@ -1,5 +1,6 @@
 package com.joaopaulosanttos.fitcalc
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -49,11 +50,24 @@ class MainActivity : AppCompatActivity() {
         )
 
         rvMain = findViewById(R.id.rv_main)
-        rvMain.adapter = MainAdapter(mainItems)
+        rvMain.adapter = MainAdapter(mainItems, object : OnItemClickListener {
+            override fun onClick(id: Int) {
+                when(id) {
+                    1 -> {
+                        val i = Intent(this@MainActivity, ImcActivity::class.java)
+                        startActivity(i)
+                    }
+                }
+            }
+
+        })
         rvMain.layoutManager = GridLayoutManager(this, 2)
     }
 
-    private inner class MainAdapter(val mainItems: List<MainItem>) : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
+    private inner class MainAdapter(
+        val mainItems: List<MainItem>,
+        val onItemClickListener: OnItemClickListener
+        ) : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
             val view = layoutInflater.inflate(R.layout.main_item, parent, false)
@@ -76,6 +90,10 @@ class MainActivity : AppCompatActivity() {
 
                 icon.setImageResource(item.drawableId)
                 txt.setText(item.txtStringId)
+
+                itemView.setOnClickListener {
+                    onItemClickListener.onClick(item.id)
+                }
             }
         }
     }
