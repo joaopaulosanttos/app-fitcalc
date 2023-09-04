@@ -2,4 +2,7 @@
     <string name="app_name">FitCalc</string>
     <string name="desc_main">Trace seu caminho para uma vida saudável. Escolha a função que deseja:</string>
     <string name="txt_imc">IMC</string>
+    <string name="txt_tmb">TMB</string>
+    <string name="txt_kcal">KCAL</string>
+    <string name="txt_water">WATER</string>
 </resources>
